@@ -10,5 +10,6 @@
     <string name="Incorrect">НЕПРАВИЛЬНО</string>
     <string name="yes">ДА</string>
     <string name="no">НЕТ</string>
+    <string name="result_text">Ваш результат:</string>
     <string name="correct_answer">ПРАВИЛЬНЫЙ ОТВЕТ:</string>
 </resources>

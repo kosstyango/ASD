@@ -22,9 +22,9 @@ public class MainActivity<msg> extends AppCompatActivity {
             new questions(R.string.question4, false),
             new questions(R.string.question5, true)};
     private int questionIndex = 0; //изначальный номер вопроса
+    private int res = 0; //кол-во правильных ответов
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("SYSTEM INFO:", "МЕТОД onCreate() ЗАПУЩЕН");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (savedInstanceState != null){
@@ -37,30 +37,41 @@ public class MainActivity<msg> extends AppCompatActivity {
         noBtn = findViewById(R.id.noBtn);
         correct_answer = findViewById(R.id.correct_answer);
 
-        yesBtn.setOnClickListener(new View.OnClickListener(){
+        yesBtn.setOnClickListener(new View.OnClickListener(){ //обработчик нажатия кнопки "ДА"
             @Override
             public void onClick(View view){
-                if(questions[questionIndex].isAnswerTrue())
+                if(questions[questionIndex].isAnswerTrue()){ //проверяем правильность ответа
                 Toast.makeText(MainActivity.this, R.string.Correct, Toast.LENGTH_SHORT).show();
+                res++; //увеличиваем res на 1
+                }
                 else Toast.makeText(MainActivity.this, R.string.Incorrect, Toast.LENGTH_SHORT).show();
                 questionIndex++;
-                if (questionIndex>questions.length) questionIndex=0;
+                if (questionIndex>questions.length) { //проверяем, не закончились ли вопросы
+                    Intent intent = new Intent(MainActivity.this, Result.class); //создаём намерение запустить новую активность Result
+                    intent.putExtra("res", res); // передаём в активность Result информацию о кол-ве правильных ответов
+                    startActivity(intent); //запускаем активность Result
+                }
             textView.setText(questions[questionIndex].getQuestionResID());
             }
         });
 
-        noBtn.setOnClickListener(new View.OnClickListener(){
+        noBtn.setOnClickListener(new View.OnClickListener(){ //Обработчик нажатия кнопки "НЕТ"
             @Override
             public void onClick(View view){
                 if(questions[questionIndex].isAnswerTrue())
                     Toast.makeText(MainActivity.this, R.string.Incorrect, Toast.LENGTH_SHORT).show();
                 else Toast.makeText(MainActivity.this, R.string.Correct, Toast.LENGTH_SHORT).show();
                 questionIndex++;
-                if (questionIndex>questions.length) questionIndex=0;
+                if (questionIndex>questions.length) { //проверяем, не закончились ли вопросы
+                    Intent intent = new Intent(MainActivity.this, Result.class); //создаём намерение запустить новую активность Result
+                    intent.putExtra("res", res); // передаём в активность Result информацию о кол-ве правильных ответов
+                    startActivity(intent); //запускаем активность Result
+                }
                 textView.setText(questions[questionIndex].getQuestionResID());
             }
-        });
-        correct_answer.setOnClickListener(new View.OnClickListener(){ //обработчик нажатия кнопки "Подсказка"
+                });
+
+        correct_answer.setOnClickListener(new View.OnClickListener(){ //Обработчик нажатия кнопки "Подсказка"
             @Override
             public void onClick(View view){
             Intent intent = new Intent(MainActivity.this, Answer.class); //создаём намерение запустить новую активность Answer
@@ -70,35 +81,11 @@ public class MainActivity<msg> extends AppCompatActivity {
         });
 
     }
-    @Override
-    public void onStart(){
-    super.onStart();
-        Log.d("SYSTEM INFO:", "МЕТОД onStart() ЗАПУЩЕН");
-    }
-    @Override
-    public void onResume(){
-        super.onResume();
-        Log.d("SYSTEM INFO:", "МЕТОД onResume() ЗАПУЩЕН");
-    }
-    @Override
-    public void onPause(){
-        super.onPause();
-        Log.d("SYSTEM INFO:", "МЕТОД onPause() ЗАПУЩЕН");
-    }
-    @Override
-    public void onStop(){
-        super.onStop();
-        Log.d("SYSTEM INFO:", "МЕТОД onStop() ЗАПУЩЕН");
-    }
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState){
         super.onSaveInstanceState(savedInstanceState);
         Log.d("SYSTEM INFO:", "МЕТОД onSaveInstanceState() ЗАПУЩЕН");
         savedInstanceState.putInt("questionIndex", questionIndex);
-    }
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        Log.d("SYSTEM INFO:", "МЕТОД onDestroy() ЗАПУЩЕН");
     }
 }
