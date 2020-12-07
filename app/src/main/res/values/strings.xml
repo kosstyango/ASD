@@ -1,0 +1,14 @@
+<resources>
+
+    <string name="app_name">Quiz</string>
+    <string name="question1">2+2=4 ?</string>
+    <string name="question2">25*25=125 ?</string>
+    <string name="question3">40:10=4 ?</string>
+    <string name="question4">107-70=100 ?</string>
+    <string name="question5">95+5=90 ?</string>
+    <string name="Correct">Правильно!!!</string>
+    <string name="Incorrect">НЕПРАВИЛЬНО</string>
+    <string name="yes">ДА</string>
+    <string name="no">НЕТ</string>
+    <string name="correct_answer">ПРАВИЛЬНЫЙ ОТВЕТ:</string>
+</resources>
